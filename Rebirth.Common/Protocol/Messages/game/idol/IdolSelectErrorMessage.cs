@@ -1,0 +1,88 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Generated on 01/30/2023 13:09:23
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Rebirth.Common.Protocol.Types;
+using Rebirth.Common.IO;
+using Rebirth.Common.Network;
+
+namespace Rebirth.Common.Protocol.Messages
+{
+
+public class IdolSelectErrorMessage : NetworkMessage
+{
+
+public const uint Id = 7505;
+public uint MessageId
+{
+    get { return Id; }
+}
+
+public bool activate;
+        public bool party;
+        public sbyte reason;
+        public uint idolId;
+        
+
+public IdolSelectErrorMessage()
+{
+}
+
+public IdolSelectErrorMessage(bool activate, bool party, sbyte reason, uint idolId)
+        {
+            this.activate = activate;
+            this.party = party;
+            this.reason = reason;
+            this.idolId = idolId;
+        }
+        
+
+public void Serialize(IDataWriter writer)
+{
+
+byte flag1 = 0;
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, activate);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, party);
+            writer.WriteByte(flag1);
+            writer.WriteSbyte(reason);
+            writer.WriteVarShort((int)idolId);
+            
+
+}
+
+public void Deserialize(IDataReader reader)
+{
+
+byte flag1 = reader.ReadByte();
+            activate = BooleanByteWrapper.GetFlag(flag1, 0);
+            party = BooleanByteWrapper.GetFlag(flag1, 1);
+            reason = reader.ReadSbyte();
+            idolId = reader.ReadVarUhShort();
+            
+
+}
+
+
+}
+
+
+}

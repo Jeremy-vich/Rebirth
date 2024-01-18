@@ -1,0 +1,94 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Generated on 01/30/2023 13:09:32
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Rebirth.Common.IO;
+
+namespace Rebirth.Common.Protocol.Types
+{
+
+public class GameFightFighterLightInformations
+{
+
+public const short Id = 1381;
+public virtual short TypeId
+{
+    get { return Id; }
+}
+
+public bool sex;
+        public bool alive;
+        public double id;
+        public sbyte wave;
+        public uint level;
+        public sbyte breed;
+        
+
+public GameFightFighterLightInformations()
+{
+}
+
+public GameFightFighterLightInformations(bool sex, bool alive, double id, sbyte wave, uint level, sbyte breed)
+        {
+            this.sex = sex;
+            this.alive = alive;
+            this.id = id;
+            this.wave = wave;
+            this.level = level;
+            this.breed = breed;
+        }
+        
+
+public virtual void Serialize(IDataWriter writer)
+{
+
+byte flag1 = 0;
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, sex);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, alive);
+            writer.WriteByte(flag1);
+            writer.WriteDouble(id);
+            writer.WriteSbyte(wave);
+            writer.WriteVarShort((int)level);
+            writer.WriteSbyte(breed);
+            
+
+}
+
+public virtual void Deserialize(IDataReader reader)
+{
+
+byte flag1 = reader.ReadByte();
+            sex = BooleanByteWrapper.GetFlag(flag1, 0);
+            alive = BooleanByteWrapper.GetFlag(flag1, 1);
+            id = reader.ReadDouble();
+            wave = reader.ReadSbyte();
+            level = reader.ReadVarUhShort();
+            breed = reader.ReadSbyte();
+            
+
+}
+
+
+}
+
+
+}

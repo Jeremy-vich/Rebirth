@@ -1,0 +1,100 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Generated on 01/30/2023 13:09:33
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Rebirth.Common.IO;
+
+namespace Rebirth.Common.Protocol.Types
+{
+
+public class PartyInvitationMemberInformations : CharacterBaseInformations
+{
+
+public const short Id = 7042;
+public override short TypeId
+{
+    get { return Id; }
+}
+
+public short worldX;
+        public short worldY;
+        public double mapId;
+        public uint subAreaId;
+        public Types.PartyEntityBaseInformation[] entities;
+        
+
+public PartyInvitationMemberInformations()
+{
+}
+
+public PartyInvitationMemberInformations(double id, string name, uint level, Types.EntityLook entityLook, sbyte breed, bool sex, short worldX, short worldY, double mapId, uint subAreaId, Types.PartyEntityBaseInformation[] entities)
+         : base(id, name, level, entityLook, breed, sex)
+        {
+            this.worldX = worldX;
+            this.worldY = worldY;
+            this.mapId = mapId;
+            this.subAreaId = subAreaId;
+            this.entities = entities;
+        }
+        
+
+public void Serialize(IDataWriter writer)
+{
+
+base.Serialize(writer);
+            writer.WriteShort(worldX);
+            writer.WriteShort(worldY);
+            writer.WriteDouble(mapId);
+            writer.WriteVarShort((int)subAreaId);
+            writer.WriteShort((short)entities.Length);
+            foreach (var entry in entities)
+            {
+                 entry.Serialize(writer);
+            }
+            
+
+}
+
+public void Deserialize(IDataReader reader)
+{
+
+base.Deserialize(reader);
+            worldX = reader.ReadShort();
+            worldY = reader.ReadShort();
+            mapId = reader.ReadDouble();
+            subAreaId = reader.ReadVarUhShort();
+            var limit = (ushort)reader.ReadUShort();
+            entities = new Types.PartyEntityBaseInformation[limit];
+            for (int i = 0; i < limit; i++)
+            {
+                 entities[i] = new Types.PartyEntityBaseInformation();
+                 entities[i].Deserialize(reader);
+            }
+            
+
+}
+
+
+}
+
+
+}

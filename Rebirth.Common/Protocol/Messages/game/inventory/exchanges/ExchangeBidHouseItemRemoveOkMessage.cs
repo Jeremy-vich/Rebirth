@@ -1,0 +1,73 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Generated on 01/30/2023 13:09:24
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Rebirth.Common.Protocol.Types;
+using Rebirth.Common.IO;
+using Rebirth.Common.Network;
+
+namespace Rebirth.Common.Protocol.Messages
+{
+
+public class ExchangeBidHouseItemRemoveOkMessage : NetworkMessage
+{
+
+public const uint Id = 6960;
+public uint MessageId
+{
+    get { return Id; }
+}
+
+public int sellerId;
+        
+
+public ExchangeBidHouseItemRemoveOkMessage()
+{
+}
+
+public ExchangeBidHouseItemRemoveOkMessage(int sellerId)
+        {
+            this.sellerId = sellerId;
+        }
+        
+
+public void Serialize(IDataWriter writer)
+{
+
+writer.WriteInt(sellerId);
+            
+
+}
+
+public void Deserialize(IDataReader reader)
+{
+
+sellerId = reader.ReadInt();
+            
+
+}
+
+
+}
+
+
+}
